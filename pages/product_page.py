@@ -8,19 +8,26 @@ class ProductPage(BasePage):
         button.click()
 
 
+    def get_product_name(self):
+        product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_TITLE)
+        return product_name.text
+
+
+    def get_product_price(self):
+        product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
+        return product_price.text
+
+
     def should_be_item_has_been_added_alert(self):
         alert = self.browser.find_element(*ProductPageLocators.ITEM_HAS_BEEN_ADDED_ALERT)
-        product_title = self.browser.find_element(*ProductPageLocators.PRODUCT_TITLE)
-        assert alert.text == product_title.text
+        assert alert.text == self.get_product_name()
 
 
     def should_be_header_basket_total_info(self):
         alert = self.browser.find_element(*ProductPageLocators.HEADER_BASKET_TOTAL_INFO)
-        product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
-        assert alert.text.split()[2] == product_price.text
+        assert alert.text.split()[2] == self.get_product_price()
 
 
     def should_be_basket_total_alert(self):
         alert = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
-        product_price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
-        assert alert.text == product_price.text
+        assert alert.text == self.get_product_price()

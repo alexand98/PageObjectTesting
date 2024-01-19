@@ -31,3 +31,12 @@ class ProductPage(BasePage):
     def should_be_basket_total_alert(self):
         alert = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE)
         assert alert.text == self.get_product_price()
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ITEM_HAS_BEEN_ADDED_ALERT), \
+            "Success message is presented, but should not be"
+
+
+    def should_disappear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.ITEM_HAS_BEEN_ADDED_ALERT), \
+            "Success message is not dissappeared, but should not be"
